@@ -1,38 +1,38 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
+"aa" = (
 /turf/space,
 /area/space)
-"b" = (
+"ab" = (
 /turf/simulated/wall,
 /area/constructionsite)
-"c" = (
+"ac" = (
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"d" = (
+"ad" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"e" = (
+"ae" = (
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"f" = (
+"af" = (
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"g" = (
+"ag" = (
 /obj/effect/landmark/start,
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"h" = (
+"ah" = (
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2";
@@ -45,7 +45,7 @@
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"i" = (
+"ai" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -54,109 +54,109 @@
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"j" = (
+"aj" = (
 /obj/structure/cable,
 /obj/machinery/power/debug_items/infinite_generator,
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"k" = (
+"ak" = (
 /obj/machinery/light,
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"l" = (
+"al" = (
 /obj/effect/landmark{
 	name = "tdome1"
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"m" = (
+"am" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	 icon_state = "intact";
+	icon_state = "intact";
 	dir = 5
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"n" = (
+"an" = (
 /obj/machinery/atmospherics/portables_connector{
-	 icon_state = "map_connector";
+	icon_state = "map_connector";
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"o" = (
+"ao" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	 icon_state = "intact";
+	icon_state = "intact";
 	dir = 4
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"p" = (
+"ap" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	 icon_state = "intact";
+	icon_state = "intact";
 	dir = 6
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"q" = (
+"aq" = (
 /obj/machinery/atmospherics/portables_connector{
-	 icon_state = "map_connector";
+	icon_state = "map_connector";
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/canister/empty,
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"r" = (
+"ar" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	 icon_state = "map_scrubber_on";
+	icon_state = "map_scrubber_on";
 	dir = 1
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"s" = (
+"as" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"t" = (
+"at" = (
 /obj/effect/landmark{
 	name = "JoinLate"
 	},
 /turf/simulated/floor/tiled,
-/area/constructionsite)
-"u" = (
+/area/rnd/xenobiology)
+"au" = (
 /obj/machinery/light_switch{
 	pixel_x = -25
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"v" = (
+"av" = (
 /obj/machinery/light_switch{
 	pixel_x = 25
 	},
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"w" = (
+"aw" = (
 /obj/effect/floor_decal/industrial/hatch/yellow,
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"x" = (
+"ax" = (
 /obj/structure/ladder/up,
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"y" = (
+"ay" = (
 /turf/simulated/wall/iron,
 /area/shuttle/escape)
-"z" = (
+"az" = (
 /obj/effect/wingrille_spawn/reinforced,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"A" = (
+"aA" = (
 /obj/machinery/computer/shuttle_control{
 	shuttle_tag = "Example"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"B" = (
+"aB" = (
 /obj/structure/bed/chair{
 	dir = 1
 	},
@@ -168,28 +168,27 @@
 	id_tag = "example_shuttle_port";
 	pixel_x = -28
 	},
-/obj/effect/shuttle_landmark/lower_level,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"C" = (
+"aC" = (
 /obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"D" = (
+"aD" = (
 /obj/machinery/door/airlock/external/bolted{
 	frequency = 1379;
 	id_tag = "example_shuttle_port_hatch"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"E" = (
+"aE" = (
 /obj/machinery/door/airlock/external/bolted{
 	frequency = 1379;
 	id_tag = "example_shuttle_starboard_hatch"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"F" = (
+"aF" = (
 /obj/machinery/embedded_controller/radio/simple_docking_controller{
 	id_tag = "lower_level_dock";
 	pixel_x = -8;
@@ -197,1654 +196,146 @@
 	},
 /turf/simulated/floor,
 /area/constructionsite)
-"G" = (
+"aG" = (
 /obj/machinery/door/airlock/external/bolted{
 	frequency = 1379;
 	id_tag = "lower_level_dock_hatch"
 	},
 /turf/simulated/floor,
 /area/constructionsite)
-"H" = (
+"aH" = (
 /turf/simulated/floor,
 /area/constructionsite)
-"I" = (
+"aI" = (
 /obj/effect/landmark/test/safe_turf,
 /turf/simulated/floor/tiled,
 /area/constructionsite)
-"J" = (
+"aJ" = (
 /obj/effect/landmark/test/space_turf,
 /turf/space,
 /area/space)
+"aK" = (
+/obj/item/weapon/crowbar,
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aL" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/tiled,
+/area/constructionsite)
+"aM" = (
+/turf/simulated/wall,
+/area/rnd/xenobiology)
+"aN" = (
+/mob/living/carbon/slime,
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aO" = (
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aP" = (
+/obj/effect/wallframe_spawn/reinforced/bare,
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aQ" = (
+/obj/machinery/camera{
+	name = "xenobio lab 1";
+	network = list("Research");
+	pixel_x = 10;
+	pixel_y = 3
+	},
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aR" = (
+/obj/machinery/computer/xenobio_console,
+/obj/machinery/claw,
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aS" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aV" = (
+/obj/machinery/door/window/southleft,
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aW" = (
+/obj/machinery/power/debug_items/infinite_generator,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aX" = (
+/obj/machinery/light_switch{
+	pixel_y = -15;
+	pixel_z = -15
+	},
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aY" = (
+/obj/machinery/optable,
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"aZ" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"ba" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/mob/living/carbon/slime,
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"bb" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 4
+	},
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
+"bc" = (
+/obj/machinery/light,
+/turf/simulated/floor/tiled,
+/area/rnd/xenobiology)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(2,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(3,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(4,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(5,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(6,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(7,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(8,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(9,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(10,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(11,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(12,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(13,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-y
-z
-z
-D
-y
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(14,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-y
-A
-B
-C
-y
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(15,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-y
-z
-z
-E
-y
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(16,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-G
-b
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(17,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-F
-b
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(18,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-b
-b
-b
-b
-b
-b
-b
-b
-H
-b
-b
-b
-b
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(19,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-c
-c
-e
-c
-c
-u
-c
-c
-e
-h
-i
-j
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(20,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-l
-l
-l
-c
-c
-c
-c
-c
-c
-c
-c
-c
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(21,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-l
-l
-l
-c
-c
-c
-c
-c
-t
-t
-t
-c
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(22,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-d
-l
-l
-l
-c
-c
-c
-c
-c
-t
-t
-t
-k
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(23,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-c
-c
-x
-c
-c
-c
-I
-c
-t
-t
-t
-c
-b
-a
-a
-J
-a
-a
-a
-a
-a
-"}
-(24,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-w
-w
-w
-c
-c
-c
-c
-c
-c
-c
-c
-c
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(25,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-b
-w
-w
-c
-c
-g
-c
-c
-c
-c
-c
-c
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(26,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-w
-w
-w
-c
-c
-c
-c
-c
-c
-c
-c
-c
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(27,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(28,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-d
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-k
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(29,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-c
-c
-c
-s
-m
-c
-p
-r
-c
-c
-c
-c
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(30,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-c
-c
-c
-c
-o
-c
-o
-c
-c
-c
-c
-c
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(31,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-c
-v
-f
-c
-n
-c
-q
-c
-f
-c
-c
-c
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(32,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(33,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(34,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(35,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(36,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(37,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(38,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(39,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(40,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(41,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(42,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(43,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(44,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(45,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(46,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(47,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(48,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaMaMaMaMaMaMaMaMaMaMaMaMaMaMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaMaOaZaOaPaNbaaPaSaQaLaRbbaMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaMaOaOaTaPaOaTaPaOaOaOaOaOaMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaMaPaVaPaPaVaPaPaOaKaOataOaMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaMaSaOaOaOaOaOaOaOaTaOaObbaMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaMaWaOaOaObcaOaOaOaXaOaOaOaMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaMaMaMaMaMaMababacababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacadacacacacacadacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacalalalacawabawacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacalalalacawawawacacacacavabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaealalalaxawawawacacacacafabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacasacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaayayayaaaaabacacacacacacacacacacamaoanabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaazaAazaaaaabauacacacacacagacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaazaBazabababacacacacaIacaUacacacapaoaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaDaCaEaGaFaHacacacacacacacacacacaracacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaayayayabababaeaUacacacacacacacacacacafabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabahacacacacacacaUacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaiacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabajacacakacacacacacakacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}

@@ -14,3 +14,7 @@
 			src.build_path = /obj/machinery/computer/rdconsole/core
 			to_chat(user, "<span class='notice'>Access protocols set to default.</span>")
 	return
+
+/obj/item/weapon/stock_parts/circuitboard/xenobio_console
+	name = T_BOARD("xenobio console")
+	build_path = /obj/machinery/computer/xenobio_console		

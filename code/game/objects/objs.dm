@@ -175,7 +175,19 @@
 		return
 
 	set_dir(turn(dir, 90))
-	update_icon() 
+	update_icon()
 
 //For things to apply special effects after damaging an organ, called by organ's take_damage
 /obj/proc/after_wounding(obj/item/organ/external/organ, datum/wound)
+
+/obj/CanPass(atom/movable/mover, turf/target, height, air_group)
+	if(istype(mover) && mover.checkpass(PASS_FLAG_SHORT))
+		. = TRUE
+	else
+		. = ..()
+
+/obj/CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
+	if(istype(mover) && mover.checkpass(PASS_FLAG_SHORT))
+		. = TRUE
+	else
+		. = ..()

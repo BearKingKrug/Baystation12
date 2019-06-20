@@ -13,10 +13,6 @@
 
 /obj/machinery/body_scanconsole/Initialize()
 	. = ..()
-	component_parts = list(
-		new /obj/item/weapon/circuitboard/body_scanconsole(src),
-		new /obj/item/weapon/stock_parts/console_screen(src))
-	RefreshParts()
 	FindScanner()
 
 /obj/machinery/body_scanconsole/on_update_icon()
@@ -65,8 +61,13 @@
 		return
 	ui_interact(user)
 
+/obj/machinery/body_scanconsole/CanUseTopic(mob/user)
+	if(!connected)
+		return STATUS_CLOSE
+	return ..()
+
 /obj/machinery/body_scanconsole/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(connected.occupant)
+	if(connected && connected.occupant)
 		data["scanEnabled"] = TRUE
 		if(ishuman(connected.occupant))
 			data["isCompatible"] = TRUE

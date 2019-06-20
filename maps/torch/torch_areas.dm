@@ -889,6 +889,10 @@
 	icon_state = "quartstorage"
 	sound_env = LARGE_ENCLOSED
 
+/area/quartermaster/sorting
+	name ="\improper Supply Sorting"
+	icon_state = "quartstorage"
+
 /area/quartermaster/storage/upper
 	name = "\improper Supply Upper Warehouse"
 
@@ -1047,7 +1051,7 @@
 // Security
 
 /area/security/bo
-	name = "\improper Security - Brig Officer"
+	name = "\improper Security - Brig Chief"
 	icon_state = "Warden"
 	req_access = list(access_armory)
 
@@ -1073,10 +1077,6 @@
 
 /area/security/opscheck
 	name = "\improper First Deck Security Checkpoint"
-	icon_state = "checkpoint"
-
-/area/security/oldopscheck
-	name = "\improper Decommissioned First Deck Security Checkpoint"
 	icon_state = "checkpoint"
 
 /area/security/habcheck
@@ -1129,7 +1129,13 @@
 	icon_state = "patients"
 
 /area/medical/mentalhealth
-	name = "\improper Mental Health"
+	name = "\improper Chaplain's Office"
+	icon_state = "medbay3"
+	ambience = list('sound/ambience/signal.ogg')
+	req_access = list(access_chapel_office)
+
+/area/medical/counselor
+	name = "\improper Counselor's Office"
 	icon_state = "medbay3"
 	ambience = list('sound/ambience/signal.ogg')
 	req_access = list(access_psychiatrist)
@@ -1762,4 +1768,3 @@
 /area/tdome/tdomeobserve
 	name = "\improper Thunderdome (Observer.)"
 	icon_state = "purple"
-

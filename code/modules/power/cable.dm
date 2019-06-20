@@ -347,12 +347,13 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 		else if(istype(AM,/obj/machinery/power/apc))
 			var/obj/machinery/power/apc/N = AM
-			if(!N.terminal)	continue // APC are connected through their terminal
+			var/obj/machinery/power/terminal/terminal = N.terminal()
+			if(!terminal)	continue // APC are connected through their terminal
 
-			if(N.terminal.powernet == powernet)
+			if(terminal.powernet == powernet)
 				continue
 
-			to_connect += N.terminal //we'll connect the machines after all cables are merged
+			to_connect += terminal //we'll connect the machines after all cables are merged
 
 		else if(istype(AM,/obj/machinery/power)) //other power machines
 			var/obj/machinery/power/M = AM
@@ -620,11 +621,11 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 /obj/item/stack/cable_coil/transfer_to(obj/item/stack/cable_coil/S)
 	if(!istype(S))
-		return
+		return 0
 	if(!(can_merge(S) || S.can_merge(src)))
-		return
+		return 0
 
-	..()
+	return ..()
 
 ///////////////////////////////////////////////
 // Cable laying procedures

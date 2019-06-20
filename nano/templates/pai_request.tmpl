@@ -1,16 +1,13 @@
 {{if !data.looking}}
 	<p>No personality is installed.</p>
-	<table>
-		<tr>
-			<td>{{:helper.link('Refresh available personalities', 'power', { 'request' : 1 })}}</td>
-		</tr>
-	</table>
+	{{:helper.link('Refresh available personalities', 'power', { 'request' : 1 })}}
 	<br>
 	<p>Each time this button is pressed, a request will be sent out to any available personalities. Check back often and give plenty of time for personalities to respond. This process could take anywhere from 15 seconds to several minutes, depending on the available personalities' timeliness.</p>
 {{else}}
 	<p>Requesting AI personalities from central database... If there are no entries, or if a suitable entry is not listed, check again later as more personalities may be added.</p>
 	<img src='loading.gif' /> Searching for personalities<br><br>
 	<br>
+	{{:helper.link('Stop', 'power', { 'request' : 0 })}}
 	{{for data.available_pais}}
 		<fieldset style="min-height:75px;background-color: #202020;">
 			<legend style="text-align:center">{{:value.name}}</legend>

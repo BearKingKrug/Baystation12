@@ -233,37 +233,40 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	for(var/datum/paiCandidate/c in paiController.pai_candidates)
 		if(c.ready)
 			var/found = 0
-			for(var/mob/observer/ghost/o in GLOB.player_list)
-				if(o.key == c.key && o.MayRespawn())
-					found = 1
+			for(var/mob/living/carbon/human/skrell/O in GLOB.player_list)
+				to_chat(user, SPAN_BOLD("FOUND A SKRELL!"))
+				found = 1
 			if(found)
 				available += list(list("name" = c.name, "description" = c.description, "role" = c.role, "comments" = c.comments, "candidate_ref" = "\ref[c]", "device_ref" = "\ref[p]"))
 	. = available
 
 /datum/paiController/proc/requestRecruits(var/mob/user)
 	inquirer = user
-	for(var/mob/observer/ghost/O in GLOB.player_list)
-		if(!O.MayRespawn())
-			continue
-		if(jobban_isbanned(O, "pAI"))
-			continue
-		if(asked.Find(O.key))
-			if(world.time < asked[O.key] + askDelay)
-				continue
-			else
-				asked.Remove(O.key)
+	//DEBUG STUFF
+	to_chat(user, SPAN_BOLD("Looking for pais. Player list: [GLOB.player_list.len]\nPlayer1 - [GLOB.player_list[1]]"))
+	for(var/mob/living/O in GLOB.player_list)
+		to_chat(user, SPAN_BOLD("FOUND A SKRELL!"))
+		// if(!O.MayRespawn())
+		// 	continue
+		// if(jobban_isbanned(O, "pAI"))
+		// 	continue
+		// if(asked.Find(O.key))
+		// 	if(world.time < asked[O.key] + askDelay)
+		// 		continue
+		// 	else
+		// 		asked.Remove(O.key)
 		if(O.client)
 			if(BE_PAI in O.client.prefs.be_special_role)
 				question(O.client)
 
 /datum/paiController/proc/question(var/client/C)
-	spawn(0)
-		if(!C)	return
-		asked.Add(C.key)
-		asked[C.key] = world.time
-		var/response = alert(C, "[inquirer] is requesting a pAI personality. Would you like to play as a personal AI?", "pAI Request", "Yes", "No", "Never for this round")
-		if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
-		if(response == "Yes")
-			recruitWindow(C.mob)
-		else if (response == "Never for this round")
-			C.prefs.be_special_role -= BE_PAI
+	//spawn(0)
+	if(!C)	return
+	asked.Add(C.key)
+	asked[C.key] = world.time
+	var/response = alert(C, "[inquirer] is requesting a pAI personality. Would you like to play as a personal AI?", "pAI Request", "Yes", "No", "Never for this round")
+	if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
+	if(response == "Yes")
+		recruitWindow(C.mob)
+	else if (response == "Never for this round")
+		C.prefs.be_special_role -= BE_PAI

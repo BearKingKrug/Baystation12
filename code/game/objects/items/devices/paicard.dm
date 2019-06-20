@@ -31,7 +31,6 @@
 	return ..()
 
 /obj/item/device/paicard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-
 	if(!pai)
 		data["looking"] = looking_for_personality
 		ui = SSnano.try_update_ui(user, src, ui_key, ui, data, force_open)
@@ -40,12 +39,14 @@
 			ui.set_initial_data(data)
 			ui.open()
 			ui.set_auto_update(1)
+	if(looking_for_personality)
+		data["available_pais"] = paiController.pai_candidates
 
 /obj/item/device/paicard/attack_self(mob/user)
 	if (!in_range(src, user))
 		return
 	user.set_machine(src)
-	data["available_pais"] = paiController.findPAI(src, usr)
+	data["available_pais"] = list()
 	ui_interact(user)
 	// var/dat = {"
 	// 	<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
@@ -239,9 +240,9 @@
 	//onclose(user, "paicard")
 	return
 
-/obj/item/device/paicard/Topic(href, href_list)
-	if(!usr || usr.stat)
-		return
+/obj/item/device/paicard/OnTopic(var/user, var/list/href_list)
+	// if(!usr || usr.stat)
+	// 	return
 
 	if(href_list["setdna"])
 		if(pai.master_dna)
@@ -255,8 +256,12 @@
 			pai.master_dna = dna.unique_enzymes
 			to_chat(pai, "<span class='warning'>You have been bound to a new master.</span>")
 	if(href_list["request"])
-		src.looking_for_personality = 1
-		data["available_pais"] = paiController.findPAI(src, usr)
+		var/req = text2num(href_list["request"])
+		if(req == TRUE)
+			src.looking_for_personality = 1
+			data["available_pais"] = paiController.findPAI(src, usr)
+		else if (req == FALSE)
+			src.looking_for_personality = 0
 	if(href_list["wipe"])
 		var/confirm = input("Are you CERTAIN you wish to delete the current personality? This action cannot be undone.", "Personality Wipe") in list("Yes", "No")
 		if(confirm == "Yes")
@@ -281,6 +286,26 @@
 			to_chat(pai, "Your supplemental directives have been updated. Your new directives are:")
 			to_chat(pai, "Prime Directive: <br>[pai.pai_law0]")
 			to_chat(pai, "Supplemental Directives: <br>[pai.pai_laws]")
+	if(href_list["download"])
+		var/datum/paiCandidate/candidate = locate(href_list["candidate"])
+		var/obj/item/device/paicard/card = locate(href_list["device"])
+		if(card.pai)
+			return
+		if(istype(card,/obj/item/device/paicard) && istype(candidate,/datum/paiCandidate))
+			var/mob/living/silicon/pai/pai = new(card)
+			if(!candidate.name)
+				pai.SetName(pick(GLOB.ninja_names))
+			else
+				pai.SetName(candidate.name)
+			pai.real_name = pai.name
+			pai.key = candidate.key
+
+			card.setPersonality(pai)
+			card.looking_for_personality = 0
+
+			if(pai.mind) update_antag_icons(pai.mind)
+
+			paiController.pai_candidates -= candidate
 	attack_self(usr)
 
 // 		WIRE_SIGNAL = 1

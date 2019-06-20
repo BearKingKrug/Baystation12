@@ -34,6 +34,7 @@
 "H" = (/turf/simulated/floor,/area/constructionsite)
 "I" = (/obj/effect/landmark/test/safe_turf,/turf/simulated/floor/tiled,/area/constructionsite)
 "J" = (/obj/effect/landmark/test/space_turf,/turf/space,/area/space)
+"K" = (/obj/item/device/paicard,/turf/simulated/floor/tiled,/area/constructionsite)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -54,9 +55,9 @@ aaaaaaaaaaaaaaaaabccccccccccsccbaaaaaaaaaaaaaaaa
 aaaaaaaaaaaayyyaabccccccccccmonbaaaaaaaaaaaaaaaa
 aaaaaaaaaaaazAzaabucccccgccccccbaaaaaaaaaaaaaaaa
 aaaaaaaaaaaazBzbbbccccIcccccpoqbaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaDCEGFHccccccccccrccbaaaaaaaaaaaaaaaa
-aaaaaaaaaaaayyybbbectttcccccccfbaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaabhctttccccccccbaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaDCEGFHKKccccccccrccbaaaaaaaaaaaaaaaa
+aaaaaaaaaaaayyybbbKKtttcccccccfbaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaabhKtttccccccccbaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaabictttccccccccbaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaabjcckccccckcccbaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbaaaaaaaaaaaaaaaa

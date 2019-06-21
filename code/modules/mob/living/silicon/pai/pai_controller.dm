@@ -17,7 +17,6 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	paiController = new /datum/paiController()
 	return 1
 
-
 /datum/paiController
 	var/inquirer = null
 	var/list/pai_candidates = list()
@@ -26,28 +25,6 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	var/askDelay = 10 * 60 * 1	// One minute [ms * sec * min]
 
 /datum/paiController/Topic(href, href_list[])
-	if(href_list["download"])
-		var/datum/paiCandidate/candidate = locate(href_list["candidate"])
-		var/obj/item/device/paicard/card = locate(href_list["device"])
-		if(card.pai)
-			return
-		if(istype(card,/obj/item/device/paicard) && istype(candidate,/datum/paiCandidate))
-			var/mob/living/silicon/pai/pai = new(card)
-			if(!candidate.name)
-				pai.SetName(pick(GLOB.ninja_names))
-			else
-				pai.SetName(candidate.name)
-			pai.real_name = pai.name
-			pai.key = candidate.key
-
-			card.setPersonality(pai)
-			card.looking_for_personality = 0
-
-			if(pai.mind) update_antag_icons(pai.mind)
-
-			pai_candidates -= candidate
-			usr << browse(null, "window=findPai")
-
 	if(href_list["new"])
 		var/datum/paiCandidate/candidate = locate(href_list["candidate"])
 		var/option = href_list["option"]
@@ -83,10 +60,10 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 					candidate.role = sanitize(candidate.role)
 				if(candidate.comments)
 					candidate.comments = sanitize(candidate.comments)
-
 			if("submit")
 				if(candidate)
 					candidate.ready = 1
+					pai_candidates += candidate
 					for(var/obj/item/device/paicard/p in world)
 						if(p.looking_for_personality == 1)
 							p.alertUpdate()
@@ -105,8 +82,18 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	if(!candidate)
 		candidate = new /datum/paiCandidate()
 		candidate.key = M.key
-		pai_candidates.Add(candidate)
-
+		candidate.savefile_load(usr)
+		pai_candidates += candidate
+		//In case people have saved unsanitized stuff.
+		if(candidate.name)
+			candidate.name = sanitizeSafe(candidate.name, MAX_NAME_LEN)
+		if(candidate.description)
+			candidate.description = sanitize(candidate.description)
+		if(candidate.role)
+			candidate.role = sanitize(candidate.role)
+		if(candidate.comments)
+			candidate.comments = sanitize(candidate.comments)
+	to_chat(M, SPAN_BOLD("Candidate name: [candidate.name]"))
 	var/dat = ""
 	dat += {"
 			<style type="text/css">
@@ -227,25 +214,11 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 	M << browse(dat, "window=paiRecruit;size=580x580;")
 
-/datum/paiController/proc/findPAI(var/obj/item/device/paicard/p, var/mob/user)
-	requestRecruits(user)
-	var/list/available = list()
-	for(var/datum/paiCandidate/c in paiController.pai_candidates)
-		if(c.ready)
-			var/found = 0
-			for(var/mob/living/carbon/human/skrell/O in GLOB.player_list)
-				to_chat(user, SPAN_BOLD("FOUND A SKRELL!"))
-				found = 1
-			if(found)
-				available += list(list("name" = c.name, "description" = c.description, "role" = c.role, "comments" = c.comments, "candidate_ref" = "\ref[c]", "device_ref" = "\ref[p]"))
-	. = available
-
 /datum/paiController/proc/requestRecruits(var/mob/user)
 	inquirer = user
 	//DEBUG STUFF
-	to_chat(user, SPAN_BOLD("Looking for pais. Player list: [GLOB.player_list.len]\nPlayer1 - [GLOB.player_list[1]]"))
+	//TODO: CHANGE THIS BACK TO OBSERVER
 	for(var/mob/living/O in GLOB.player_list)
-		to_chat(user, SPAN_BOLD("FOUND A SKRELL!"))
 		// if(!O.MayRespawn())
 		// 	continue
 		// if(jobban_isbanned(O, "pAI"))
@@ -257,16 +230,16 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		// 		asked.Remove(O.key)
 		if(O.client)
 			if(BE_PAI in O.client.prefs.be_special_role)
-				question(O.client)
+				asked.Add(O.client.key)
+				asked[O.client.key] = world.time
+				var/response = alert(O.client, "[inquirer] is requesting a pAI personality. Would you like to play as a personal AI?", "pAI Request", "Yes", "No", "Never for this round")
+				if(!O.client)
+					return		//handle logouts that happen whilst the alert is waiting for a response.
+				if(response == "Yes")
+					recruitWindow(O.client.mob)
+				else if (response == "Never for this round")
+					O.client.prefs.be_special_role -= BE_PAI
 
 /datum/paiController/proc/question(var/client/C)
 	//spawn(0)
-	if(!C)	return
-	asked.Add(C.key)
-	asked[C.key] = world.time
-	var/response = alert(C, "[inquirer] is requesting a pAI personality. Would you like to play as a personal AI?", "pAI Request", "Yes", "No", "Never for this round")
-	if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
-	if(response == "Yes")
-		recruitWindow(C.mob)
-	else if (response == "Never for this round")
-		C.prefs.be_special_role -= BE_PAI
+

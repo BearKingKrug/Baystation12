@@ -32,15 +32,18 @@
 
 /obj/item/device/paicard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(!pai)
+		if(looking_for_personality)
+			to_chat(user, SPAN_DANGER("UPDATING PAI CANDIDATE LIST. len: [paiController.pai_candidates.len]"))
+			data["available_pais"] = paiController.pai_candidates
 		data["looking"] = looking_for_personality
 		ui = SSnano.try_update_ui(user, src, ui_key, ui, data, force_open)
 		if (!ui)
-			ui = new(user, src, ui_key, "pai_request.tmpl", "pAI Request Module", 300, 400)
+			ui = new(user, src, ui_key, "paicard_request.tmpl", "pAI Request Module", 300, 400)
 			ui.set_initial_data(data)
 			ui.open()
 			ui.set_auto_update(1)
-	if(looking_for_personality)
-		data["available_pais"] = paiController.pai_candidates
+
+
 
 /obj/item/device/paicard/attack_self(mob/user)
 	if (!in_range(src, user))
@@ -242,8 +245,7 @@
 
 /obj/item/device/paicard/OnTopic(var/user, var/list/href_list)
 	// if(!usr || usr.stat)
-	// 	return
-
+	//  	return
 	if(href_list["setdna"])
 		if(pai.master_dna)
 			return
@@ -258,10 +260,10 @@
 	if(href_list["request"])
 		var/req = text2num(href_list["request"])
 		if(req == TRUE)
-			src.looking_for_personality = 1
-			data["available_pais"] = paiController.findPAI(src, usr)
+			looking_for_personality = 1
+			paiController.requestRecruits(usr)
 		else if (req == FALSE)
-			src.looking_for_personality = 0
+			looking_for_personality = 0
 	if(href_list["wipe"])
 		var/confirm = input("Are you CERTAIN you wish to delete the current personality? This action cannot be undone.", "Personality Wipe") in list("Yes", "No")
 		if(confirm == "Yes")
@@ -288,11 +290,10 @@
 			to_chat(pai, "Supplemental Directives: <br>[pai.pai_laws]")
 	if(href_list["download"])
 		var/datum/paiCandidate/candidate = locate(href_list["candidate"])
-		var/obj/item/device/paicard/card = locate(href_list["device"])
-		if(card.pai)
+		if(pai)
 			return
-		if(istype(card,/obj/item/device/paicard) && istype(candidate,/datum/paiCandidate))
-			var/mob/living/silicon/pai/pai = new(card)
+		if(istype(candidate,/datum/paiCandidate))
+			var/mob/living/silicon/pai/pai = new(src)
 			if(!candidate.name)
 				pai.SetName(pick(GLOB.ninja_names))
 			else
@@ -300,13 +301,12 @@
 			pai.real_name = pai.name
 			pai.key = candidate.key
 
-			card.setPersonality(pai)
-			card.looking_for_personality = 0
+			src.setPersonality(pai)
+			src.looking_for_personality = 0
 
-			if(pai.mind) update_antag_icons(pai.mind)
-
+			if(pai.mind)
+				update_antag_icons(pai.mind)
 			paiController.pai_candidates -= candidate
-	attack_self(usr)
 
 // 		WIRE_SIGNAL = 1
 //		WIRE_RECEIVE = 2

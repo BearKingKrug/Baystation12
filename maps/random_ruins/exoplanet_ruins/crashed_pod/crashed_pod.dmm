@@ -322,7 +322,7 @@
 /turf/simulated/floor/tiled/techfloor,
 /area/map_template/crashed_pod)
 "aI" = (
-/obj/machinery/atmospherics/pipe/tank/air,
+/obj/machinery/atmospherics/unary/tank/air,
 /obj/effect/floor_decal/industrial/outline/blue,
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/tiled/techfloor,
@@ -712,9 +712,6 @@
 /area/map_template/crashed_pod)
 "bE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{

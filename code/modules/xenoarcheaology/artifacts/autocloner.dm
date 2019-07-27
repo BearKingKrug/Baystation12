@@ -22,7 +22,6 @@
 	if(prob(33))
 		spawn_type = pick(
 		/mob/living/simple_animal/hostile/giant_spider/nurse,
-		/mob/living/simple_animal/hostile/alien,
 		/mob/living/simple_animal/hostile/bear,
 		/mob/living/simple_animal/hostile/creature)
 	else
@@ -32,7 +31,7 @@
 		/mob/living/simple_animal/corgi/puppy,
 		/mob/living/simple_animal/chicken,
 		/mob/living/simple_animal/cow,
-		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/hostile/retaliate/parrot,
 		/mob/living/simple_animal/slime,
 		/mob/living/simple_animal/crab,
 		/mob/living/simple_animal/mouse,
@@ -40,7 +39,6 @@
 
 //todo: how the hell is the asteroid permanently powered?
 /obj/machinery/auto_cloner/Process()
-	..()
 	if(powered(power_channel))
 		if(!previous_power_state)
 			previous_power_state = 1

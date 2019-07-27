@@ -4,6 +4,11 @@
 
 /obj/item/weapon/stock_parts/circuitboard/telecomms
 	board_type = "machine"
+	additional_spawn_components = list(
+		/obj/item/weapon/stock_parts/console_screen = 1,
+		/obj/item/weapon/stock_parts/keyboard = 1,
+		/obj/item/weapon/stock_parts/power/apc/buildable = 1
+	)
 
 /obj/item/weapon/stock_parts/circuitboard/telecomms/receiver
 	name = T_BOARD("subspace receiver")
@@ -21,7 +26,6 @@
 	origin_tech = list(TECH_DATA = 4, TECH_ENGINEERING = 4)
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,
-							/obj/item/stack/cable_coil = 2,
 							/obj/item/weapon/stock_parts/subspace/filter = 2)
 
 /obj/item/weapon/stock_parts/circuitboard/telecomms/relay
@@ -30,7 +34,6 @@
 	origin_tech = list(TECH_DATA = 3, TECH_ENGINEERING = 4, TECH_BLUESPACE = 3)
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,
-							/obj/item/stack/cable_coil = 2,
 							/obj/item/weapon/stock_parts/subspace/filter = 2)
 
 /obj/item/weapon/stock_parts/circuitboard/telecomms/bus
@@ -39,7 +42,6 @@
 	origin_tech = list(TECH_DATA = 4, TECH_ENGINEERING = 4)
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,
-							/obj/item/stack/cable_coil = 1,
 							/obj/item/weapon/stock_parts/subspace/filter = 1)
 
 /obj/item/weapon/stock_parts/circuitboard/telecomms/processor
@@ -51,7 +53,6 @@
 							/obj/item/weapon/stock_parts/subspace/filter = 1,
 							/obj/item/weapon/stock_parts/subspace/treatment = 2,
 							/obj/item/weapon/stock_parts/subspace/analyzer = 1,
-							/obj/item/stack/cable_coil = 2,
 							/obj/item/weapon/stock_parts/subspace/amplifier = 1)
 
 /obj/item/weapon/stock_parts/circuitboard/telecomms/server
@@ -60,7 +61,6 @@
 	origin_tech = list(TECH_DATA = 4, TECH_ENGINEERING = 4)
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,
-							/obj/item/stack/cable_coil = 1,
 							/obj/item/weapon/stock_parts/subspace/filter = 1)
 
 /obj/item/weapon/stock_parts/circuitboard/telecomms/broadcaster
@@ -69,7 +69,6 @@
 	origin_tech = list(TECH_DATA = 4, TECH_ENGINEERING = 4, TECH_BLUESPACE = 2)
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,
-							/obj/item/stack/cable_coil = 1,
 							/obj/item/weapon/stock_parts/subspace/filter = 1,
 							/obj/item/weapon/stock_parts/subspace/crystal = 1,
 							/obj/item/weapon/stock_parts/micro_laser/high = 2)
@@ -79,7 +78,6 @@
 	build_path = /obj/machinery/telecomms/allinone
 	origin_tech = list(TECH_DATA = 3, TECH_ENGINEERING = 3);
 	req_components = list(
-							/obj/item/stack/cable_coil = 2,
 							/obj/item/weapon/stock_parts/subspace/ansible = 1,
 							/obj/item/weapon/stock_parts/subspace/filter = 1,
 							/obj/item/weapon/stock_parts/subspace/treatment = 2,

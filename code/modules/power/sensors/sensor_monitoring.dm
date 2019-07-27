@@ -14,7 +14,6 @@
 	//computer stuff
 	density = 1
 	anchored = 1.0
-	circuit = /obj/item/weapon/stock_parts/circuitboard/powermonitor
 	var/alerting = 0
 	idle_power_usage = 300
 	active_power_usage = 300
@@ -22,7 +21,6 @@
 
 // Checks the sensors for alerts. If change (alerts cleared or detected) occurs, calls for icon update.
 /obj/machinery/computer/power_monitor/Process()
-	..()
 	var/alert = check_warnings()
 	if(alert != alerting)
 		alerting = !alerting
@@ -47,12 +45,9 @@
 	power_monitor = new(src)
 
 // On user click opens the UI of this computer.
-/obj/machinery/computer/power_monitor/attack_hand(mob/user)
-	add_fingerprint(user)
-
-	if(stat & (BROKEN|NOPOWER))
-		return
+/obj/machinery/computer/power_monitor/interface_interact(mob/user)
 	ui_interact(user)
+	return TRUE
 
 // Uses dark magic to operate the NanoUI of this computer.
 /obj/machinery/computer/power_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)

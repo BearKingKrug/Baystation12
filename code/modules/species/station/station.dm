@@ -147,6 +147,9 @@
 	heat_level_2 = 480 //Default 400
 	heat_level_3 = 1100 //Default 1000
 
+	cold_discomfort_level = 292 //Higher than perhaps it should be, to avoid big speed reduction at normal room temp
+	heat_discomfort_level = 368
+
 	reagent_tag = IS_SKRELL
 
 	descriptors = list(
@@ -215,10 +218,10 @@
 	deform = 'icons/mob/human_races/species/diona/deformed_body.dmi'
 	preview_icon = 'icons/mob/human_races/species/diona/preview.dmi'
 	hidden_from_codex = FALSE
-
+	move_intents = list(/decl/move_intent/walk, /decl/move_intent/creep)
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/diona)
 	//primitive_form = "Nymph"
-	slowdown = 7
+	slowdown = 5
 	rarity_value = 3
 	hud_type = /datum/hud_data/diona
 	siemens_coefficient = 0.3

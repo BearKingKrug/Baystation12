@@ -127,8 +127,9 @@
 			qdel(src)
 		return
 
-/obj/machinery/beehive/attack_hand(var/mob/user)
+/obj/machinery/beehive/physical_attack_hand(var/mob/user)
 	if(!closed)
+		. = TRUE
 		if(honeycombs < 100)
 			to_chat(user, "<span class='notice'>There are no filled honeycombs.</span>")
 			return
@@ -140,13 +141,11 @@
 			new /obj/item/honey_frame/filled(loc)
 			honeycombs -= 100
 			--frames
-			update_icon()
+		update_icon()
 		if(honeycombs < 100)
 			to_chat(user, "<span class='notice'>You take all filled honeycombs out.</span>")
-		return
 
 /obj/machinery/beehive/Process()
-	..()
 	if(closed && !smoked && bee_count)
 		pollinate_flowers()
 		update_icon()
@@ -171,6 +170,9 @@
 	icon_state = "centrifuge"
 	anchored = 1
 	density = 1
+	construct_state = /decl/machine_construction/default/panel_closed
+	uncreated_component_parts = null
+	stat_immune = 0
 
 	var/processing = 0
 	var/honey = 0
@@ -178,14 +180,17 @@
 /obj/machinery/honey_extractor/components_are_accessible(path)
 	return !processing && ..()
 
+/obj/machinery/honey_extractor/cannot_transition_to(state_path, mob/user)
+	if(processing)
+		return SPAN_NOTICE("You must wait for \the [src] to finish first!")
+	return ..()	
+
 /obj/machinery/honey_extractor/attackby(var/obj/item/I, var/mob/user)
 	if(processing)
 		to_chat(user, "<span class='notice'>\The [src] is currently spinning, wait until it's finished.</span>")
 		return
-	if(default_deconstruction_screwdriver(user, I))
-		return TRUE
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
+	if((. = component_attackby(I, user)))
+		return
 	if(istype(I, /obj/item/honey_frame))
 		var/obj/item/honey_frame/H = I
 		if(!H.honey)

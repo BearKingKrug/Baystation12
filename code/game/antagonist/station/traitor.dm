@@ -32,11 +32,6 @@ GLOBAL_DATUM_INIT(traitors, /datum/antagonist/traitor, new)
 		var/datum/objective/survive/survive_objective = new
 		survive_objective.owner = traitor
 		traitor.objectives += survive_objective
-
-		if(prob(10))
-			var/datum/objective/block/block_objective = new
-			block_objective.owner = traitor
-			traitor.objectives += block_objective
 	else
 		switch(rand(1,100))
 			if(1 to 33)
@@ -80,6 +75,7 @@ GLOBAL_DATUM_INIT(traitors, /datum/antagonist/traitor, new)
 		if(istype(traitor_mob, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/R = traitor_mob
 			R.SetLockdown(0)
+			R.emagged = 1 // Provides a traitor robot with its module's emag item
 		return 1
 
 	if(!..())

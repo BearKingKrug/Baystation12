@@ -12,11 +12,15 @@
 	anchored = 1
 	clicksound = "switch"
 	power_channel = LOCAL // Draws power from direct connections to powernets.
+	construct_state = /decl/machine_construction/default/panel_closed
+	uncreated_component_parts = null
+	stat_immune = 0
 	stat = BROKEN         // Should be removed if the terminals initialize fully.
+	reason_broken = MACHINE_BROKEN_GENERIC
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 1e6 // actual charge
-
+	var/overlay_icon = 'icons/obj/power.dmi'
 	var/input_attempt = 0 			// 1 = attempting to charge, 0 = not attempting to charge
 	var/inputting = 0 				// 1 = actually inputting, 0 = not inputting
 	var/input_level = 50000 		// amount of power the SMES attempts to charge by
@@ -72,7 +76,6 @@
 	update_icon()
 
 /obj/machinery/power/smes/populate_parts()
-	..()
 	for(var/d in GLOB.cardinal)
 		var/obj/item/weapon/stock_parts/power/terminal/part = install_component(/obj/item/weapon/stock_parts/power/terminal, refresh_parts = FALSE)
 		part.terminal_dir = d
@@ -81,7 +84,7 @@
 			if(term.dir == turn(d, 180) && !term.master)
 				part.set_terminal(src, term)
 				term.connect_to_network()
-		
+	..()
 
 /obj/machinery/power/smes/add_avail(var/amount)
 	if(..(amount))
@@ -93,25 +96,25 @@
 	overlays.Cut()
 	if(stat & BROKEN)	return
 
-	overlays += image('icons/obj/power.dmi', "smes-op[outputting]")
+	overlays += image(overlay_icon, "smes-op[outputting]")
 
 	if(inputting == 2)
-		overlays += image('icons/obj/power.dmi', "smes-oc2")
+		overlays += image(overlay_icon, "smes-oc2")
 	else if (inputting == 1)
-		overlays += image('icons/obj/power.dmi', "smes-oc1")
+		overlays += image(overlay_icon, "smes-oc1")
 	else if (input_attempt)
-		overlays += image('icons/obj/power.dmi', "smes-oc0")
+		overlays += image(overlay_icon, "smes-oc0")
 
 	var/clevel = chargedisplay()
 	if(clevel)
-		overlays += image('icons/obj/power.dmi', "smes-og[clevel]")
+		overlays += image(overlay_icon, "smes-og[clevel]")
 
 	if(outputting == 2)
-		overlays += image('icons/obj/power.dmi', "smes-op2")
+		overlays += image(overlay_icon, "smes-op2")
 	else if (outputting == 1)
-		overlays += image('icons/obj/power.dmi', "smes-op1")
+		overlays += image(overlay_icon, "smes-op1")
 	else
-		overlays += image('icons/obj/power.dmi', "smes-op0")
+		overlays += image(overlay_icon, "smes-op0")
 
 /obj/machinery/power/smes/proc/chargedisplay()
 	return round(5.5*charge/(capacity ? capacity : 5e6))
@@ -147,7 +150,6 @@
 		set_broken(!num_terminals)
 
 /obj/machinery/power/smes/Process()
-	..()
 	if(stat & BROKEN)	return
 	if(failure_timer)	// Disabled by gridcheck.
 		failure_timer--
@@ -219,26 +221,17 @@
 /obj/machinery/power/smes/draw_power(var/amount)
 	return amount - use_power_oneoff(amount)
 
-/obj/machinery/power/smes/attack_ai(mob/user)
-	add_hiddenprint(user)
+/obj/machinery/power/smes/interface_interact(mob/user)
 	ui_interact(user)
-
-/obj/machinery/power/smes/attack_hand(mob/user)
-	add_fingerprint(user)
-	ui_interact(user)
-
+	return TRUE
 
 /obj/machinery/power/smes/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-
-	if(default_deconstruction_screwdriver(user, W))
+	if(component_attackby(W, user))
 		return TRUE
 
 	if (!panel_open)
-		to_chat(user, "<span class='warning'>You need to open access hatch on [src] first!</span>")
+		to_chat(user, "<span class='warning'>You need to open the access hatch on \the [src] first!</span>")
 		return TRUE
-
-	if((. = ..()))
-		return
 
 	if(isWelder(W))
 		var/obj/item/weapon/weldingtool/WT = W

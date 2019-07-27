@@ -140,25 +140,6 @@
 	storage_types = CLOSET_STORAGE_ITEMS
 	req_access = list(access_medical_equip)
 
-/obj/structure/closet/secure_closet/chaplain
-	name = "chaplain's locker"
-	closet_appearance = /decl/closet_appearance/secure_closet/chaplain
-	req_access = list(access_chapel_office)
-
-/obj/structure/closet/secure_closet/chaplain/WillContain()
-	return list(
-		/obj/item/clothing/under/rank/chaplain,
-		/obj/item/clothing/shoes/black,
-		/obj/item/clothing/suit/chaplain_hoodie,
-		/obj/item/weapon/storage/candle_box = 2,
-		/obj/item/weapon/deck/tarot,
-		/obj/item/weapon/reagent_containers/food/drinks/bottle/holywater,
-		/obj/item/weapon/nullrod,
-		/obj/item/weapon/storage/bible,
-		/obj/item/weapon/storage/belt/general,
-		/obj/item/weapon/material/urn
-	)
-
 /obj/structure/closet/secure_closet/counselor
 	name = "counselor's locker"
 	closet_appearance = /decl/closet_appearance/secure_closet/medical
@@ -168,6 +149,8 @@
 	return list(
 		/obj/item/clothing/under/rank/psych,
 		/obj/item/clothing/under/rank/psych/turtleneck,
+		/obj/item/clothing/suit/storage/toggle/labcoat,
+		/obj/item/clothing/suit/storage/toggle/labcoat/foundation,
 		/obj/item/clothing/shoes/white,
 		/obj/item/weapon/reagent_containers/glass/bottle/stoxin,
 		/obj/item/weapon/reagent_containers/syringe,

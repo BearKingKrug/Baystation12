@@ -5,12 +5,14 @@
 	density = 1
 	plane = ABOVE_HUMAN_PLANE
 	layer = ABOVE_HUMAN_LAYER //So it draws over mobs in the tile north of it.
+	construct_state = /decl/machine_construction/default/panel_closed
+	uncreated_component_parts = null
+	stat_immune = 0
 
 /obj/machinery/mining/drill
 	name = "mining drill head"
 	desc = "An enormous drill."
 	icon_state = "mining_drill"
-	uncreated_component_parts = list(/obj/item/weapon/stock_parts/power/battery)
 	power_channel = LOCAL
 	active_power_usage = 10 KILOWATTS
 	base_type = /obj/machinery/mining/drill
@@ -38,15 +40,12 @@
 	//Upgrades
 	var/harvest_speed
 	var/capacity
-	var/obj/item/weapon/cell/cell = null
 
 	//Flags
 	var/need_update_field = 0
 	var/need_player_check = 0
 
 /obj/machinery/mining/drill/Process()
-	..()
-
 	if(need_player_check)
 		return
 
@@ -54,8 +53,12 @@
 
 	if(!active) return
 
-	if(!anchored || (stat & NOPOWER))
-		system_error("system configuration or charge error")
+	if(!anchored)
+		system_error("system configuration error")
+		return
+
+	if(stat & NOPOWER)
+		system_error("insufficient charge")
 		return
 
 	if(need_update_field)
@@ -92,7 +95,8 @@
 			if(resource_field.len)
 				harvesting = pick(resource_field)
 
-		if(!harvesting) return
+		if(!harvesting || !harvesting.resources)
+			return
 
 		var/total_harvest = harvest_speed //Ore harvest-per-tick.
 		var/found_resource = 0 //If this doesn't get set, the area is depleted and the drill errors out.
@@ -142,35 +146,26 @@
 		active = new_active
 		update_use_power(active ? POWER_USE_ACTIVE : POWER_USE_OFF)
 
-/obj/machinery/mining/drill/attack_ai(var/mob/user as mob)
-	return src.attack_hand(user)
-
-/obj/machinery/mining/drill/attackby(obj/item/O as obj, mob/user as mob)
-	if(!active)
-		if(default_deconstruction_screwdriver(user, O))
-			return TRUE
-		if(default_deconstruction_crowbar(user, O))
-			return TRUE
-		if(default_part_replacement(user, O))
-			return TRUE
+/obj/machinery/mining/drill/cannot_transition_to(state_path)
+	if(active)
+		return SPAN_NOTICE("You must turn \the [src] off first.")
 	return ..()
 
 /obj/machinery/mining/drill/components_are_accessible(path)
-	return panel_open && !active	
+	return !active && ..()
 
-/obj/machinery/mining/drill/attack_hand(mob/user as mob)
+/obj/machinery/mining/drill/physical_attack_hand(mob/user as mob)
 	check_supports()
-
-	if ((. = ..()))
-		return
-	else if(need_player_check)
+	if(need_player_check)
+		if(can_use_power_oneoff(10 KILOWATTS))
+			system_error("insufficient charge")
+		else if(anchored)
+			get_resource_field()
 		to_chat(user, "You hit the manual override and reset the drill's error checking.")
 		need_player_check = 0
-		if(anchored)
-			get_resource_field()
 		update_icon()
-		return
-	else if(supported && !panel_open)
+		return TRUE
+	if(supported && !panel_open)
 		if(!(stat & NOPOWER))
 			set_active(!active)
 			if(active)
@@ -184,12 +179,14 @@
 		to_chat(user, "<span class='notice'>Turning on a piece of industrial machinery without sufficient bracing or wires exposed is a bad idea.</span>")
 
 	update_icon()
+	return TRUE
 
 /obj/machinery/mining/drill/on_update_icon()
 	if(need_player_check)
 		icon_state = "mining_drill_error"
 	else if(active)
-		icon_state = "mining_drill_active"
+		var/status = Clamp(round( (contents.len / capacity) * 4 ), 0, 3)
+		icon_state = "mining_drill_active[status]"
 	else if(supported)
 		icon_state = "mining_drill_braced"
 	else
@@ -198,9 +195,9 @@
 
 /obj/machinery/mining/drill/RefreshParts()
 	..()
-	harvest_speed = total_component_rating_of_type(/obj/item/weapon/stock_parts/micro_laser)
-	capacity = 200 * total_component_rating_of_type(/obj/item/weapon/stock_parts/matter_bin)
-	var/charge_multiplier = total_component_rating_of_type(/obj/item/weapon/stock_parts/capacitor) || 1
+	harvest_speed = Clamp(total_component_rating_of_type(/obj/item/weapon/stock_parts/micro_laser), 0, 10)
+	capacity = 200 * Clamp(total_component_rating_of_type(/obj/item/weapon/stock_parts/matter_bin), 0, 10)
+	var/charge_multiplier = Clamp(total_component_rating_of_type(/obj/item/weapon/stock_parts/capacitor), 0.1, 10)
 	change_power_consumption(initial(active_power_usage) / charge_multiplier, POWER_USE_ACTIVE)
 
 /obj/machinery/mining/drill/proc/check_supports()
@@ -270,16 +267,17 @@
 
 	var/obj/machinery/mining/drill/connected
 
+/obj/machinery/mining/brace/cannot_transition_to(state_path)
+	if(connected && connected.active)
+		return SPAN_NOTICE("You can't work with the brace of a running drill!")
+	return ..()
+
 /obj/machinery/mining/brace/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(connected && connected.active)
 		to_chat(user, "<span class='notice'>You can't work with the brace of a running drill!</span>")
-		return
-
-	if(default_deconstruction_screwdriver(user, W))
-		return
-	if(default_deconstruction_crowbar(user, W))
-		return
-
+		return TRUE
+	if(component_attackby(W, user))
+		return TRUE
 	if(isWrench(W))
 
 		if(istype(get_turf(src), /turf/space))
@@ -327,7 +325,7 @@
 	connected.check_supports()
 	connected = null
 
-/obj/machinery/mining/brace/default_deconstruction_crowbar(var/mob/user, var/obj/item/weapon/crowbar/C)
+/obj/machinery/mining/brace/dismantle()
 	if(connected)
 		disconnect()
 	..()

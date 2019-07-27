@@ -6,6 +6,9 @@
 	icon_state = "body_scannerconsole"
 	density = 0
 	anchored = 1
+	construct_state = /decl/machine_construction/default/panel_closed
+	uncreated_component_parts = null
+	stat_immune = 0
 	var/list/display_tags = list()
 	var/list/connected_displays = list()
 	var/list/data = list()
@@ -48,18 +51,15 @@
 			GLOB.destroyed_event.register(D, src, .proc/remove_display)
 	return !!connected_displays.len
 
-/obj/machinery/body_scanconsole/attack_ai(user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/body_scanconsole/attack_hand(mob/user)
-	if(..())
-		return
-	if(stat & (NOPOWER|BROKEN))
-		return
 	if(!connected || (connected.stat & (NOPOWER|BROKEN)))
 		to_chat(user, "<span class='warning'>This console is not connected to a functioning body scanner.</span>")
-		return
+		return TRUE
+	return ..()
+
+/obj/machinery/body_scanconsole/interface_interact(mob/user)
 	ui_interact(user)
+	return TRUE
 
 /obj/machinery/body_scanconsole/CanUseTopic(mob/user)
 	if(!connected)
@@ -137,14 +137,10 @@
 		data["pushEnabled"] = FALSE
 		return TOPIC_REFRESH
 
-/obj/machinery/body_scanconsole/attackby(var/obj/item/O, user as mob)
-	if(default_deconstruction_screwdriver(user, O))
+/obj/machinery/body_scanconsole/state_transition(var/decl/machine_construction/default/new_state)
+	. = ..()
+	if(istype(new_state))
 		updateUsrDialog()
-		return
-	if(default_deconstruction_crowbar(user, O))
-		return
-	if(default_part_replacement(user, O))
-		return
 
 /obj/machinery/body_scanconsole/proc/remove_display(var/obj/machinery/body_scan_display/display)
 	connected_displays -= display

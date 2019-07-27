@@ -24,15 +24,14 @@
 	if(!owned_scanner)
 		owned_scanner = locate(/obj/machinery/artifact_scanpad) in orange(1, src)
 
-/obj/machinery/artifact_analyser/attack_hand(var/mob/user as mob)
-	src.add_fingerprint(user)
+/obj/machinery/artifact_analyser/DefaultTopicState()
+	return GLOB.physical_state
+
+/obj/machinery/artifact_analyser/interface_interact(var/mob/user)
 	interact(user)
+	return TRUE
 
 /obj/machinery/artifact_analyser/interact(mob/user)
-	if(stat & (NOPOWER|BROKEN) || get_dist(src, user) > 1)
-		user.unset_machine(src)
-		return
-
 	var/dat = "<B>Anomalous material analyser</B><BR>"
 	dat += "<HR>"
 	if(!owned_scanner)
@@ -55,7 +54,6 @@
 	onclose(user, "artanalyser")
 
 /obj/machinery/artifact_analyser/Process()
-	..()
 	if(scan_in_progress && world.time > scan_completion_time)
 		scan_in_progress = 0
 		updateDialog()

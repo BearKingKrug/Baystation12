@@ -11,6 +11,9 @@
 	use_power = POWER_USE_OFF
 	idle_power_usage = 5			//5 Watts for thermostat related circuitry
 	base_type = /obj/machinery/atmospherics/unary/heater
+	construct_state = /decl/machine_construction/default/panel_closed
+	uncreated_component_parts = null
+	stat_immune = 0
 
 	var/max_temperature = T20C + 680
 	var/internal_volume = 600	//L
@@ -74,11 +77,9 @@
 
 	update_icon()
 
-/obj/machinery/atmospherics/unary/heater/attack_ai(mob/user as mob)
+/obj/machinery/atmospherics/unary/heater/interface_interact(mob/user)
 	ui_interact(user)
-
-/obj/machinery/atmospherics/unary/heater/attack_hand(mob/user as mob)
-	ui_interact(user)
+	return TRUE
 
 /obj/machinery/atmospherics/unary/heater/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	// this is the data which will be sent to the ui
@@ -130,8 +131,8 @@
 //upgrading parts
 /obj/machinery/atmospherics/unary/heater/RefreshParts()
 	..()
-	var/cap_rating = total_component_rating_of_type(/obj/item/weapon/stock_parts/capacitor)
-	var/bin_rating = total_component_rating_of_type(/obj/item/weapon/stock_parts/matter_bin)
+	var/cap_rating = Clamp(total_component_rating_of_type(/obj/item/weapon/stock_parts/capacitor), 1, 20)
+	var/bin_rating = Clamp(total_component_rating_of_type(/obj/item/weapon/stock_parts/matter_bin), 0, 10)
 
 	max_power_rating = initial(max_power_rating) * cap_rating / 2
 	max_temperature = max(initial(max_temperature) - T20C, 0) * ((bin_rating * 4 + cap_rating) / 5) + T20C
@@ -141,16 +142,6 @@
 /obj/machinery/atmospherics/unary/heater/proc/set_power_level(var/new_power_setting)
 	power_setting = new_power_setting
 	power_rating = max_power_rating * (power_setting/100)
-
-/obj/machinery/atmospherics/unary/heater/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if(default_deconstruction_screwdriver(user, O))
-		return
-	if(default_deconstruction_crowbar(user, O))
-		return
-	if(default_part_replacement(user, O))
-		return
-
-	..()
 
 /obj/machinery/atmospherics/unary/heater/examine(mob/user)
 	. = ..(user)

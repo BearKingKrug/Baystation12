@@ -8,6 +8,10 @@
 	idle_power_usage = 40
 	obj_flags = OBJ_FLAG_ANCHORABLE
 	base_type = /obj/machinery/food_replicator
+	construct_state = /decl/machine_construction/default/panel_closed
+	uncreated_component_parts = null
+	stat_immune = 0
+
 	var/biomass = 100
 	var/biomass_max = 100
 	var/biomass_per = 10
@@ -40,16 +44,7 @@
 		if(success)
 			S.finish_bulk_removal()
 			to_chat(user, "You empty \the [O] into \the [src]")
-
-	if(default_deconstruction_screwdriver(user, O))
-		return
-	else if(default_deconstruction_crowbar(user, O))
-		return
-	else if(default_part_replacement(user, O))
-		return
-	else
-		..()
-	return
+	return ..()
 
 /obj/machinery/food_replicator/on_update_icon()
 	if(stat & BROKEN)
@@ -110,11 +105,12 @@
 	return 1
 
 /obj/machinery/food_replicator/RefreshParts()
-	deconstruct_eff = 0.5 * total_component_rating_of_type(/obj/item/weapon/stock_parts/micro_laser)
-	biomass_max = 100 * total_component_rating_of_type(/obj/item/weapon/stock_parts/matter_bin)
+	deconstruct_eff = 0.5 * Clamp(total_component_rating_of_type(/obj/item/weapon/stock_parts/micro_laser), 0, 10)
+	biomass_max = 100 * Clamp(total_component_rating_of_type(/obj/item/weapon/stock_parts/matter_bin), 0, 10)
 	biomass_per = max(1, 20 - 5 * total_component_rating_of_type(/obj/item/weapon/stock_parts/manipulator))
 
 	biomass = min(biomass,biomass_max)
+	..()
 
 /obj/machinery/food_replicator/proc/queue_dish(var/text)
 	if(!(text in menu))
@@ -131,7 +127,7 @@
 	if(queued_dishes && queued_dishes.len)
 		if(start_making) //want to do this first so that the first dish won't instantly come out
 			src.audible_message("<b>\The [src]</b> rumbles and vibrates.")
-			playsound(src.loc, 'sound/machines/juicer.ogg', 50, 1)
+			playsound(src.loc, 'sound/machines/juicer_old.ogg', 50, 1)
 			make_time = world.time + rand(100, 300)
 			start_making = 0
 		if(world.time > make_time)
@@ -139,7 +135,6 @@
 			if(queued_dishes && queued_dishes.len) //more to come
 				queued_dishes -= queued_dishes[1]
 				start_making = 1
-	..()
 
 /obj/machinery/food_replicator/examine(mob/user)
 	. = ..(user)

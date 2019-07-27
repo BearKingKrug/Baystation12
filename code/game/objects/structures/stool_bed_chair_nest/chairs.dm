@@ -7,7 +7,6 @@
 	buckle_dir = 0
 	buckle_lying = 0 //force people to sit up in chairs when buckled
 	obj_flags = OBJ_FLAG_ROTATABLE
-	
 	var/propelled = 0 // Check for fire-extinguisher-driven chairs
 
 /obj/structure/bed/chair/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -90,7 +89,7 @@
 		return
 
 	set_dir(turn(dir, 90))
-	update_icon() 
+	update_icon()
 
 /obj/structure/bed/chair/set_dir()
 	..()
@@ -262,7 +261,7 @@
 		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
 
 /obj/structure/bed/chair/office/light/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
-	..(newloc, newmaterial, MATERIAL_COTTON)
+	..(newloc, newmaterial, MATERIAL_CLOTH)
 
 /obj/structure/bed/chair/office/dark/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, "black")
@@ -334,7 +333,7 @@
 	..(newloc,MATERIAL_STEEL,"black")
 
 /obj/structure/bed/chair/shuttle/white/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
-	..(newloc,MATERIAL_STEEL,MATERIAL_COTTON)
+	..(newloc,MATERIAL_STEEL,MATERIAL_CLOTH)
 
 /obj/structure/bed/chair/wood
 	name = "classic chair"
@@ -388,3 +387,27 @@
 /obj/structure/bed/chair/wood/wings/walnut
 	color = WOOD_COLOR_CHOCOLATE
 	chair_material = MATERIAL_WALNUT
+
+/obj/structure/bed/chair/pew
+	name = "pew"
+	desc = "A long, simple bench with a backboard, commonly found in places of worship, courtrooms and so on. Not known for being particularly comfortable."
+	icon_state = "pew"
+	base_icon = "pew"
+	color = WOOD_COLOR_GENERIC
+	var/material/pew_material = MATERIAL_WOOD
+	obj_flags = 0
+
+/obj/structure/bed/chair/pew/left
+	icon_state = "pew_left"
+	base_icon = "pew_left"
+
+/obj/structure/bed/chair/pew/New(var/newloc)
+	..(newloc, pew_material)
+
+/obj/structure/bed/chair/pew/mahogany
+	color = WOOD_COLOR_RICH
+	pew_material = MATERIAL_MAHOGANY
+
+/obj/structure/bed/chair/pew/left/mahogany
+	color = WOOD_COLOR_RICH
+	pew_material = MATERIAL_MAHOGANY

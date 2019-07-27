@@ -7,17 +7,16 @@
 	anchored = 1
 	idle_power_usage = 50
 	base_type = /obj/machinery/recharge_station
-	uncreated_component_parts = list(
-		/obj/item/weapon/stock_parts/power/battery,
-		/obj/item/weapon/stock_parts/power/apc
-	)
+	uncreated_component_parts = null
+	stat_immune = 0
+	construct_state = /decl/machine_construction/default/panel_closed
+
+	var/overlay_icon = 'icons/obj/objects.dmi'
 	var/mob/living/occupant = null
 	var/charging = 0
 	var/last_overlay_state
 
 	var/charging_power			// W. Power rating used for charging the cyborg. 120 kW if un-upgraded
-	var/restore_power_active	// W. Power drawn from APC when an occupant is charging. 40 kW if un-upgraded
-	var/restore_power_passive	// W. Power drawn from APC when idle. 7 kW if un-upgraded
 	var/weld_rate = 0			// How much brute damage is repaired per tick
 	var/wire_rate = 0			// How much burn damage is repaired per tick
 
@@ -29,8 +28,6 @@
 	update_icon()
 
 /obj/machinery/recharge_station/Process()
-	..()
-
 	if(stat & (BROKEN | NOPOWER))
 		return
 
@@ -106,25 +103,20 @@
 		cell.emp_act(severity)
 	..(severity)
 
-/obj/machinery/recharge_station/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if(!occupant)
-		if(default_deconstruction_screwdriver(user, O))
-			return
-		if(default_deconstruction_crowbar(user, O))
-			return
-		if(default_part_replacement(user, O))
-			return
+/obj/machinery/recharge_station/components_are_accessible(path)
+	return !occupant && ..()
 
+/obj/machinery/recharge_station/cannot_transition_to(state_path)
+	if(occupant)
+		return SPAN_NOTICE("You cannot do this while \the [src] is occupied!.")
 	return ..()
 
 /obj/machinery/recharge_station/RefreshParts()
 	..()
-	var/man_rating = total_component_rating_of_type(/obj/item/weapon/stock_parts/manipulator)
-	var/cap_rating = total_component_rating_of_type(/obj/item/weapon/stock_parts/capacitor)
+	var/man_rating = Clamp(total_component_rating_of_type(/obj/item/weapon/stock_parts/manipulator), 0, 10)
+	var/cap_rating = Clamp(total_component_rating_of_type(/obj/item/weapon/stock_parts/capacitor), 0, 10)
 
 	charging_power = 40000 + 40000 * cap_rating
-	restore_power_active = 10000 + 15000 * cap_rating
-	restore_power_passive = 5000 + 1000 * cap_rating
 	weld_rate = max(0, man_rating - 3)
 	wire_rate = max(0, man_rating - 5)
 
@@ -134,11 +126,6 @@
 		desc += "<br>It is capable of repairing structural damage."
 	if(wire_rate)
 		desc += "<br>It is capable of repairing burn damage."
-
-	var/obj/item/weapon/stock_parts/power/battery/bat = get_component_of_type(/obj/item/weapon/stock_parts/power/battery)
-	if(bat)
-		bat.charge_rate = restore_power_passive * CELLRATE
-		bat.charge_channel = power_channel
 
 /obj/machinery/recharge_station/proc/overlay_state()
 	var/obj/item/weapon/cell/cell = get_cell()
@@ -171,7 +158,7 @@
 		icon_state = "borgcharger0"
 
 	last_overlay_state = overlay_state()
-	overlays = list(image('icons/obj/objects.dmi', overlay_state()))
+	overlays = list(image(overlay_icon, overlay_state()))
 
 /obj/machinery/recharge_station/Bumped(var/mob/living/silicon/robot/R)
 	go_in(R)
@@ -189,9 +176,6 @@
 	M.reset_view(src)
 	M.forceMove(src)
 	occupant = M
-	var/obj/item/weapon/stock_parts/power/battery/bat = get_component_of_type(/obj/item/weapon/stock_parts/power/battery)
-	if(bat)
-		bat.charge_rate = restore_power_active * CELLRATE
 	update_icon()
 	return 1
 
@@ -213,9 +197,6 @@
 	occupant.forceMove(loc)
 	occupant.reset_view()
 	occupant = null
-	var/obj/item/weapon/stock_parts/power/battery/bat = get_component_of_type(/obj/item/weapon/stock_parts/power/battery)
-	if(bat)
-		bat.charge_rate = restore_power_passive * CELLRATE
 	update_icon()
 
 /obj/machinery/recharge_station/verb/move_eject()

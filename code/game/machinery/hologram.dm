@@ -61,25 +61,26 @@ var/const/HOLOPAD_MODE = RANGE_BASED
 	..()
 	desc = "It's a floor-mounted device for projecting holographic images. Its ID is '[loc.loc]'"
 
-/obj/machinery/hologram/holopad/attack_hand(var/mob/living/carbon/human/user) //Carn: Hologram requests.
-	if(!istype(user))
-		return
+/obj/machinery/hologram/holopad/interface_interact(var/mob/living/carbon/human/user) //Carn: Hologram requests.
+	if(!CanInteract(user, DefaultTopicState()))
+		return FALSE
 	if(incoming_connection && caller_id)
 		if(QDELETED(sourcepad)) // If the sourcepad was deleted, most likely.
 			incoming_connection = 0
 			clear_holo()
-			return
+			return TRUE
 		visible_message("The pad hums quietly as it establishes a connection.")
 		if(caller_id.loc!=sourcepad.loc)
 			visible_message("The pad flashes an error message. The caller has left their holopad.")
-			return
+			return TRUE
 		take_call(user)
-		return
+		return TRUE
 	else if(caller_id && !incoming_connection)
 		audible_message("Severing connection to distant holopad.")
 		end_call(user)
-		return
+		return TRUE
 
+	. = TRUE
 	var/handle_type = "Holocomms"
 	if(allow_ai)
 		handle_type = alert(user,"Would you like to request an AI's presence or establish communications with another pad?", "Holopad","AI","Holocomms","Cancel")
@@ -203,6 +204,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 					ai_text = speaking.scramble(text)
 				else
 					ai_text = stars(text)
+			if(isanimal(M) && !M.universal_speak)
+				var/mob/living/simple_animal/SA = M
+				ai_text = pick(SA.speak)
 			var/name_used = M.GetVoice()
 			//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
 			var/short_links = master.get_preference_value(/datum/client_preference/ghost_follow_link_length) == GLOB.PREF_SHORT
@@ -210,7 +214,12 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			var/prefix = "<a href='byond://?src=\ref[master];trackname=[html_encode(name_used)];track=\ref[M]'>[follow]</a>"
 			master.show_message(get_hear_message(name_used, ai_text, verb, speaking, prefix), 2)
 	var/name_used = M.GetVoice()
-	var/message = get_hear_message(name_used, text, verb, speaking)
+	var/message
+	if(isanimal(M) && !M.universal_speak)
+		var/mob/living/simple_animal/SA = M
+		message = get_hear_message(name_used, pick(SA.speak), verb, speaking)
+	else
+		message = get_hear_message(name_used, text, verb, speaking)
 	if(targetpad && !targetpad.incoming_connection) //If this is the pad you're making the call from and the call is accepted
 		targetpad.audible_message(message)
 		targetpad.last_message = message
@@ -304,7 +313,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 
 /obj/machinery/hologram/holopad/Process()
-	..()
 	for (var/mob/living/silicon/ai/master in masters)
 		var/active_ai = (master && !master.incapacitated() && master.client && master.eyeobj)//If there is an AI with an eye attached, it's not incapacitated, and it has a client
 		if((stat & NOPOWER) || !active_ai)

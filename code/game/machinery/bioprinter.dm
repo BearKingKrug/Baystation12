@@ -11,6 +11,9 @@
 	density = 1
 	idle_power_usage = 40
 	active_power_usage = 300
+	construct_state = /decl/machine_construction/default/panel_closed
+	uncreated_component_parts = null
+	stat_immune = 0
 
 	var/stored_matter = 0
 	var/max_stored_matter = 0
@@ -20,15 +23,10 @@
 	// These should be subtypes of /obj/item/organ
 	var/list/products = list()
 
-/obj/machinery/organ_printer/attackby(var/obj/item/O, var/mob/user)
-	if(default_deconstruction_screwdriver(user, O))
+/obj/machinery/organ_printer/state_transition(var/decl/machine_construction/default/new_state)
+	. = ..()
+	if(istype(new_state))
 		updateUsrDialog()
-		return
-	if(default_deconstruction_crowbar(user, O))
-		return
-	if(default_part_replacement(user, O))
-		return
-	return ..()
 
 /obj/machinery/organ_printer/on_update_icon()
 	overlays.Cut()
@@ -47,22 +45,29 @@
 	print_delay += 10 * number_of_components(/obj/item/weapon/stock_parts/manipulator)
 	print_delay = max(0, print_delay)
 
-	max_stored_matter = 50 * total_component_rating_of_type(/obj/item/weapon/stock_parts/matter_bin)
+	max_stored_matter = 50 * Clamp(total_component_rating_of_type(/obj/item/weapon/stock_parts/matter_bin), 0, 20)
 	. = ..()
 
-/obj/machinery/organ_printer/attack_hand(mob/user, var/choice = null)
+/obj/machinery/organ_printer/components_are_accessible(path)
+	return !printing && ..()
 
-	if(printing || (stat & (BROKEN|NOPOWER)))
+/obj/machinery/organ_printer/cannot_transition_to(path)
+	if(printing)
+		return SPAN_NOTICE("You must wait for \the [src] to finish printing first!")
+	return ..()
+
+/obj/machinery/organ_printer/physical_attack_hand(mob/user, var/choice = null)
+	if(printing)
 		return
 
 	if(!choice)
 		choice = input("What would you like to print?") as null|anything in products
 
-	if(!choice || printing || (stat & (BROKEN|NOPOWER)))
-		return
+	if(!choice || printing || !CanPhysicallyInteract(user))
+		return TRUE
 
 	if(!can_print(choice))
-		return
+		return TRUE
 
 	stored_matter -= products[choice][2]
 
@@ -77,7 +82,7 @@
 	update_icon()
 
 	if(!choice || !src || (stat & (BROKEN|NOPOWER)))
-		return
+		return TRUE
 
 	print_organ(choice)
 
@@ -115,7 +120,8 @@
 		BP_L_FOOT   = list(/obj/item/organ/external/foot,       40),
 		BP_R_FOOT   = list(/obj/item/organ/external/foot/right, 40),
 		BP_L_HAND   = list(/obj/item/organ/external/hand,       40),
-		BP_R_HAND   = list(/obj/item/organ/external/hand/right, 40)
+		BP_R_HAND   = list(/obj/item/organ/external/hand/right, 40),
+		BP_CELL		= list(/obj/item/organ/internal/cell, 25)
 		)
 
 	var/matter_amount_per_sheet = 10
@@ -199,7 +205,7 @@
 	visible_message("<span class='info'>\The [src] churns for a moment, injects its stored DNA into the biomass, then spits out \a [O].</span>")
 	return O
 
-/obj/machinery/organ_printer/flesh/attack_hand(mob/user)
+/obj/machinery/organ_printer/flesh/physical_attack_hand(mob/user)
 	if(!loaded_dna_datum || !loaded_species)
 		visible_message("<span class='info'>\The [src] displays a warning: 'No DNA saved. Insert a blood sample.'</span>")
 		return

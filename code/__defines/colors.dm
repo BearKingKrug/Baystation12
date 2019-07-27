@@ -49,7 +49,8 @@
 #define COLOR_GRAY80           "#cccccc"
 #define COLOR_OFF_WHITE        "#eeeeee"
 #define COLOR_WHITE            "#ffffff"
-#define COLOR_GOLD             "#6d6133"
+#define COLOR_GOLD             "#ffcc33"
+#define COLOR_CLOSET_GOLD      "#6d6133"
 #define COLOR_NT_RED           "#9d2300"
 #define COLOR_BOTTLE_GREEN     "#1f6b4f"
 #define COLOR_PALE_BTL_GREEN   "#57967f"
@@ -81,7 +82,7 @@
 #define COLOR_DIAMOND          "#d8d4ea"
 
 
-#define	PIPE_COLOR_GREY        "#ffffff"	//yes white is grey
+#define	PIPE_COLOR_GREY        "#808080"
 #define	PIPE_COLOR_RED         "#ff0000"
 #define	PIPE_COLOR_BLUE        "#0000ff"
 #define	PIPE_COLOR_CYAN        "#00ffff"
@@ -89,6 +90,7 @@
 #define	PIPE_COLOR_YELLOW      "#ffcc00"
 #define	PIPE_COLOR_BLACK       "#444444"
 #define	PIPE_COLOR_ORANGE      "#b95a00"
+#define PIPE_COLOR_WHITE       "#ffffff"
 
 #define	COMMS_COLOR_DEFAULT    "#ff00ff"
 #define	COMMS_COLOR_ENTERTAIN  "#666666"
@@ -160,3 +162,10 @@
 #define BLOB_COLOR_PULS      "#b5ff5b"
 
 #define RANDOM_RGB rgb(rand(0,255), rand(0,255), rand(0,255))
+
+// Codex category colours.
+#define CODEX_COLOR_LORE      "#abdb9b"
+#define CODEX_COLOR_MECHANICS "#9ebcd8"
+#define CODEX_COLOR_ANTAG     "#e5a2a2"
+
+#define COLOR_WEBHOOK_DEFAULT 0x8bbbd5

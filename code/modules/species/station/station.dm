@@ -114,7 +114,8 @@
 	hidden_from_codex = FALSE
 	min_age = 19
 	max_age = 90
-
+	limb_blend = ICON_OVERLAY
+	
 	burn_mod = 0.9
 	oxy_mod = 1.3
 	flash_mod = 1.2
@@ -194,6 +195,19 @@
 			RELIGION_AGNOSTICISM
 		)
 	)
+	has_limbs = list(
+		BP_CHEST =  list("path" = /obj/item/organ/external/chest/skrell),
+		BP_GROIN =  list("path" = /obj/item/organ/external/groin/skrell),
+		BP_HEAD =   list("path" = /obj/item/organ/external/head/skrell),
+		BP_L_ARM =  list("path" = /obj/item/organ/external/arm/skrell),
+		BP_R_ARM =  list("path" = /obj/item/organ/external/arm/right/skrell),
+		BP_L_LEG =  list("path" = /obj/item/organ/external/leg/skrell),
+		BP_R_LEG =  list("path" = /obj/item/organ/external/leg/right/skrell),
+		BP_L_HAND = list("path" = /obj/item/organ/external/hand/skrell),
+		BP_R_HAND = list("path" = /obj/item/organ/external/hand/right/skrell),
+		BP_L_FOOT = list("path" = /obj/item/organ/external/foot/skrell),
+		BP_R_FOOT = list("path" = /obj/item/organ/external/foot/right/skrell)
+		)
 
 	has_organ = list(
 		BP_HEART =    /obj/item/organ/internal/heart,
